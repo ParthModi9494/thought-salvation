@@ -36,7 +36,6 @@ yarn-error.log
 /libpeerconnection.log
 testem.log
 /typings
-/src/environments/**
 
 
 # System files
@@ -47,3 +46,7 @@ Thumbs.db
 .firebase
 *-debug.log
 .runtimeconfig.json
+
+# environments
+/src/environments/environment.ts
+/src/environments/environment.prod.ts
