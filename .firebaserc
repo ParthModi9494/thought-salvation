@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "my-thoughts-22": {
+      "hosting": {
+        "thought-salvation": [
+          "my-thoughts-22"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "my-thoughts-22"
+  }
+}

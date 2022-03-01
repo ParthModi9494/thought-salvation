@@ -103,6 +103,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "thought-salvation:build:production",
+            "firebaseProject": "my-thoughts-22",
+            "firebaseHostingSite": "my-thoughts-22"
+          }
         }
       }
     }
