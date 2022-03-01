@@ -1,0 +1,237 @@
+<section class="m-2">
+  <!-- <div class="columns">
+    <div class="column is-half">
+      <div class="field">
+        <div class="control">
+          <div class="select">
+            <select>
+              <option>10</option>
+              <option>20</option>
+              <option>50</option>
+              <option>100</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="column is-half">
+      <div class="field">
+        <div class="control has-icons-left">
+          <input
+            class="input"
+            type="search"
+            placeholder="Start searching your tasks..."
+          />
+          <span class="icon is-left">
+            <i class="fas fa-magnifying-glass"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="field">
+    <div class="control">
+      <button class="button" (click)="addNewRow()">
+        <span class="icon-text has-text-primary">
+          <span class="icon">
+            <i class="fas fa-list"></i>
+          </span>
+          <span>Add Task</span>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <progress
+      *ngIf="false"
+      class="progress is-info is-small"
+      max="100"
+    ></progress>
+
+    <form [formGroup]="myForm">
+      <table class="table is-striped is-bordered is-hoverable is-fullwidth">
+        <thead>
+          <tr>
+            <th class="has-text-centered">#</th>
+            <th class="has-text-centered">
+              <span class="icon">
+                <i class="fas fa-check"></i>
+              </span>
+            </th>
+            <th class="has-text-centered">Task</th>
+            <th class="type-dropdown has-text-centered">Type</th>
+            <th class="has-text-centered">Visualise</th>
+            <th class="date has-text-centered">Start Date</th>
+            <th class="date has-text-centered">End Date</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="tasks">
+          <ng-container
+            *ngIf="$any(myForm.get('tasks'))?.controls.length; else noRecords"
+          >
+            <tr
+              *ngFor="
+                let taskGroup of getControls();
+                let i = index;
+                trackBy: trackByFuntion
+              "
+              [class.completed]="taskGroup.get('completed')?.value"
+              [formGroupName]="i"
+            >
+              <!-- Index  -->
+              <td class="has-text-centered">{{ i + 1 }}</td>
+
+              <!-- Checkbox  -->
+              <td class="has-text-centered is-clickable">
+                <input
+                  formControlName="completed"
+                  type="checkbox"
+                  [checked]="taskGroup.get('completed')?.value"
+                  (focus)="saveCopy(taskGroup)"
+                  (blur)="
+                    updateTask(
+                      $any($event.target).checked,
+                      taskGroup.get('completed'),
+                      taskGroup
+                    )
+                  "
+                />
+              </td>
+
+              <!-- Task  -->
+              <td
+                class="task is-clickable"
+                contenteditable="true"
+                spellcheck="true"
+                (focus)="saveCopy(taskGroup)"
+                (blur)="
+                  updateTask(
+                    $any($event.target).innerText,
+                    taskGroup.get('title'),
+                    taskGroup
+                  )
+                "
+              >
+                <input hidden type="text" formControlName="title" />
+                {{ taskGroup.get("title")?.value }}
+              </td>
+
+              <!-- Type - Dropdown  -->
+              <td class="is-clickable">
+                <div class="field">
+                  <div class="control is-expanded">
+                    <div class="select is-fullwidth">
+                      <select
+                        name="type"
+                        formControlName="type"
+                        (focus)="saveCopy(taskGroup)"
+                        (blur)="
+                          updateTask(
+                            $any($event.target).value,
+                            taskGroup.get('type'),
+                            taskGroup
+                          )
+                        "
+                      >
+                        <option [value]="thoughtType.TO_DO">
+                          {{ thoughtType.TO_DO }}
+                        </option>
+                        <option [value]="thoughtType.CRITICAL_THINKING">
+                          {{ thoughtType.CRITICAL_THINKING }}
+                        </option>
+                        <option [value]="thoughtType.PROJECT">
+                          {{ thoughtType.PROJECT }}
+                        </option>
+                        <option [value]="thoughtType.DREAM_PROJECT">
+                          {{ thoughtType.DREAM_PROJECT }}
+                        </option>
+                        <option [value]="thoughtType.EMOTIONAL_THINKING">
+                          {{ thoughtType.EMOTIONAL_THINKING }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </td>
+
+              <!-- Visualise  -->
+              <td
+                class="visualise is-clickable"
+                spellcheck="true"
+                contenteditable="true"
+                (focus)="saveCopy(taskGroup)"
+                (blur)="
+                  updateTask(
+                    $any($event.target).innerText,
+                    taskGroup.get('visualise'),
+                    taskGroup
+                  )
+                "
+              >
+                <input hidden type="text" formControlName="visualise" />
+
+                {{ taskGroup.get("visualise")?.value }}
+              </td>
+
+              <!-- Start Date -->
+              <td class="is-clickable has-text-centered">
+                <div class="field">
+                  <div class="control">
+                    <input
+                      formControlName="startDate"
+                      class="input has-text-centered"
+                      type="text"
+                      mask="0000/M0/d0"
+                      [leadZeroDateTime]="true"
+                      placeholder="yyyy/mm/dd"
+                      (focus)="saveCopy(taskGroup)"
+                      (blur)="
+                        updateTask(
+                          $any($event.target).value,
+                          taskGroup.get('startDate'),
+                          taskGroup
+                        )
+                      "
+                    />
+                  </div>
+                </div>
+              </td>
+
+              <!-- End Date -->
+              <td class="is-clickable has-text-centered">
+                <div class="field">
+                  <div class="control">
+                    <input
+                      formControlName="endDate"
+                      class="input has-text-centered"
+                      type="text"
+                      mask="0000/M0/d0"
+                      [leadZeroDateTime]="true"
+                      placeholder="yyyy/mm/dd"
+                      (focus)="saveCopy(taskGroup)"
+                      (blur)="
+                        updateTask(
+                          $any($event.target).value,
+                          taskGroup.get('endDate'),
+                          taskGroup
+                        )
+                      "
+                    />
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+          <ng-template #noRecords>
+            <tr>
+              <td class="has-text-centered" colspan="7">No records found</td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </table>
+    </form>
+  </div>
+</section>

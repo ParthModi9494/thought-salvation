@@ -1,0 +1,64 @@
+@import "bulma/sass/helpers/color";
+
+input[type="checkbox"] {
+  transform: scale(1.5);
+}
+
+table {
+  .task,
+  .visualise {
+    min-width: 250px;
+    max-width: 250px;
+  }
+
+  // .completed {
+  // text-decoration: line-through;
+  // }
+
+  td:not(:focus) {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  td:focus,
+  td:focus-within {
+    outline: 2px solid #485fc7;
+    border-radius: 5px;
+  }
+
+  td input,
+  td select,
+  td textarea {
+    overflow: hidden;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  textarea:focus {
+    height: 4rem;
+  }
+
+  .date {
+    width: 8rem;
+    min-width: 8rem;
+  }
+
+  .type-dropdown {
+    width: 14rem;
+    min-width: 14rem;
+  }
+
+  // .bg {
+  //   background-color: rgba($color: $info, $alpha: 0.5);
+  //   input,
+  //   select {
+  //     @extend .has-text-light;
+  //     option {
+  //       @extend .has-text-dark;
+  //     }
+  //   }
+  // }
+}

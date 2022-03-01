@@ -1,0 +1,49 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      allow read: if isSignedIn() && isOwner(userId);
+      allow write: if isSignedIn() && isOwner(userId);
+      allow delete: if isSignedIn() && isOwner(userId);
+      allow update: if isSignedIn() && isOwner(userId);
+    }
+
+    match /users/{userId}/properties/{propertyId} {
+      allow read: if isSignedIn() && isOwner(userId);
+      allow write: if isSignedIn() && isOwner(userId);
+      allow delete: if isSignedIn() && isOwner(userId);
+      allow update: if isSignedIn() && isOwner(userId);
+    }
+
+    match /users/{userId}/tenants/{tenantId} {
+      allow read: if isSignedIn() && isOwner(userId);
+      allow write: if isSignedIn() && isOwner(userId);
+      allow delete: if isSignedIn() && isOwner(userId);
+      allow update: if isSignedIn() && isOwner(userId);
+    }
+
+    match /users/{userId}/transactions/{transactionId} {
+      allow read: if isSignedIn() && isOwner(userId);
+      allow write: if isSignedIn() && isOwner(userId);
+      allow delete: if isSignedIn() && isOwner(userId);
+      allow update: if isSignedIn() && isOwner(userId);
+    }
+
+    match /tasks/{taskId} {
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+      allow update: if true;
+    }
+
+    /// Functions ///
+
+    function isSignedIn(){
+    return request.auth != null;
+    }
+
+    function isOwner(userId){
+    return  request.auth.uid == userId;
+    }
+  }
+}
