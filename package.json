@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "emulator": "firebase emulators:start --only firestore --import dummy-data"
   },
   "private": true,
   "dependencies": {
