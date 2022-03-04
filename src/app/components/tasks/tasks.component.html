@@ -1,46 +1,40 @@
 <section class="m-2">
-  <!-- <div class="columns">
-    <div class="column is-half">
+  <div class="columns">
+    <div class="column">
       <div class="field">
         <div class="control">
-          <div class="select">
-            <select>
-              <option>10</option>
-              <option>20</option>
-              <option>50</option>
-              <option>100</option>
-            </select>
-          </div>
+          <button class="button" (click)="addNewRow()">
+            <span class="icon-text has-text-primary">
+              <span class="icon">
+                <i class="fas fa-list"></i>
+              </span>
+              <span>Add Task</span>
+            </span>
+          </button>
         </div>
       </div>
     </div>
 
     <div class="column is-half">
-      <div class="field">
-        <div class="control has-icons-left">
+      <div class="field has-addons">
+        <div class="control has-icons-left is-expanded">
           <input
+            #search
             class="input"
             type="search"
             placeholder="Start searching your tasks..."
+            (search)="onSearch(search.value)"
           />
           <span class="icon is-left">
             <i class="fas fa-magnifying-glass"></i>
           </span>
         </div>
+        <div class="control">
+          <button (click)="onSearch(search.value)" class="button is-primary">
+            Search
+          </button>
+        </div>
       </div>
-    </div>
-  </div> -->
-
-  <div class="field">
-    <div class="control">
-      <button class="button" (click)="addNewRow()">
-        <span class="icon-text has-text-primary">
-          <span class="icon">
-            <i class="fas fa-list"></i>
-          </span>
-          <span>Add Task</span>
-        </span>
-      </button>
     </div>
   </div>
 
@@ -64,7 +58,18 @@
             <th class="has-text-centered">Task</th>
             <th class="type-dropdown has-text-centered">Type</th>
             <th class="has-text-centered">Visualise</th>
-            <th class="date has-text-centered">Start Date</th>
+            <th class="date has-text-centered">
+              Start Date
+              <span class="icon sort is-clickable">
+                <i class="fas fa-sort"></i>
+              </span>
+              <span class="icon sort is-clickable">
+                <i class="fas fa-sort-up"></i>
+              </span>
+              <span class="icon sort is-clickable">
+                <i class="fas fa-sort-down"></i>
+              </span>
+            </th>
             <th class="date has-text-centered">End Date</th>
           </tr>
         </thead>

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { OrderByDirection } from 'firebase/firestore';
 import { from, map, Observable } from 'rxjs';
 import { Task } from '../models/task.model';
 
@@ -12,6 +11,7 @@ export class TasksService {
   constructor(private afStore: AngularFirestore) {}
 
   getAllTasks(): Observable<Task[]> {
+    console.log('Fetching all Tasks...');
     return from(this.afStore.collection<Task>('/tasks').get()).pipe(
       map((tasks) => {
         return tasks.docs.map((task) => {
@@ -22,6 +22,7 @@ export class TasksService {
   }
 
   addNewTask(task: Task) {
+    console.log('Adding new Task...', task);
     return from(this.afStore.collection<Task>('/tasks').add(task)).pipe(
       map((docRef) => {
         const id = docRef.id;
@@ -31,6 +32,7 @@ export class TasksService {
   }
 
   updateTask(id: string, task: Task) {
+    console.log('Updating a Task...', task);
     return from(this.afStore.collection<Task>('/tasks').doc(id).set(task));
   }
 }

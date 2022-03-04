@@ -1,11 +1,12 @@
+import { Task } from '../../models/task.model';
 export class AddTask {
   static readonly type = '[Task] Add';
-  constructor(task: Task) {}
+  constructor(public task: Task) {}
 }
 
-export class EditTask {
-  static readonly type = '[Task] Edit';
-  constructor(task: Task) {}
+export class UpdateTask {
+  static readonly type = '[Task] Update';
+  constructor(public task: Task) {}
 }
 
 export class DeleteTask {

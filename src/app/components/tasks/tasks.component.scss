@@ -11,9 +11,19 @@ table {
     max-width: 250px;
   }
 
-  // .completed {
-  // text-decoration: line-through;
-  // }
+  th {
+    span {
+      &.sort {
+        &:hover {
+          background-color: aliceblue;
+        }
+      }
+    }
+  }
+
+  .completed {
+    text-decoration: line-through;
+  }
 
   td:not(:focus) {
     white-space: nowrap;
@@ -42,8 +52,8 @@ table {
   }
 
   .date {
-    width: 8rem;
-    min-width: 8rem;
+    width: 10rem;
+    min-width: 10rem;
   }
 
   .type-dropdown {
